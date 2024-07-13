@@ -1,0 +1,12 @@
+flask>=2.0.3
+python-dotenv>=0.19.2
+authlib>=1.0
+requests>=2.27.1
+opencv-python
+torch
+mutagen
+batch-face @ git+https://github.com/elliottzheng/batch-face.git@master
+gdown
+imageio==2.19.3
+imageio-ffmpeg==0.4.7
+redis==5.0.6

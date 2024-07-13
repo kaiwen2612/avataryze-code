@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Avataryze</title>
+        <link rel="icon" type="image/x-icon" href="/static/assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" integrity="sha512-dPXYcDub/aeb08c63jRq/k6GaKccl256JQy/AnOq7CAnEZ9FzSL9wSbcZkMp4R26vBsMLFYH4kQ67/bbV8XaCQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link href="/static/css/styles.css" rel="stylesheet" />
+    </head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Avataryze</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">       
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        </li>
+                        {% if isadmin %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/approveimages">Approve avatar images</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/createvideo">Create Video</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/uploadavatar">Upload Image</a>
+                        </li>     
+                        {% endif %}                             
+                    </ul>            
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="btn btn-primary" href="/logout" role="button">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>        
+        {% if isadmin %}
+        <h2 class="mb-3">Administrator account</h2>        
+        <p class="fs-5">
+            You are an administrator of Avataryze and can only perform administrator functions with this account.
+        </p> 
+        <p>
+            <ul>
+                <li><a href="/approveimages">Approve submitted avatar images</a></li>
+            </ul>
+        </p>
+
+        {% else %}
+        {% if videos|length > 0 %}
+        <h2 class="mb-3">Your videos</h2>        
+        <p class="fs-4">
+            These are the digital avatar videos you have created previously.
+        </p>       
+        
+        <div class="container mt-3">
+            <div class="row g-4">
+                {% for video in videos %}
+                <div class="col-6 col-md-4 text-center">
+                    <video class="img-fluid" width="320" height="240" controls>
+                        <source src="static/output/{{ video }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <p class="timestamp" id="{{ video }}"></p>
+                    <a href="/deletevideo/{{video}}" class="btn btn-danger btn-sm">delete</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>        
+
+        {% else %}
+        <section class="py-5 bg-light">
+            <div class="container">
+              <div class="row align-items-center">
+                <div class="col-lg-6">
+                  <h2 class="display-4 mb-4">Bring Your Avatars to Life with Avataryze</h2>
+                  <p class="lead mb-4">Transform static images into hilarious talking videos in seconds! Avataryze is the web app that lets you create side-splitting avatar videos with ease.</p>
+                  <ul class="list-unstyled mb-4">
+                    <li><i class="bi bi-check-circle-fill text-primary me-2"></i>Upload any avatar image</li>
+                    <li><i class="bi bi-check-circle-fill text-primary me-2"></i>Upload your own talking head video </li>
+                    <li><i class="bi bi-check-circle-fill text-primary me-2"></i>Generate funny videos instantly!</li>
+                  </ul>
+                  <a href="/createvideo" class="btn btn-primary btn-lg">Start Creating Now</a>
+                </div>
+                <div class="col-lg-6">
+                  <div class="ratio ratio-16x9">
+                    <img src="/static/assets/img/background2.png"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+
+        {% endif %}
+
+        {% endif %}
+    </div>
+    <!-- Footer-->
+    <footer class="footer bg-black small text-center text-white-50 mt-5">
+        <div class="container px-4 px-lg-5">Copyright &copy; Chang Kai Wen 2024</div>
+        <div class="container px-4 px-lg-5">design based on template from https://startbootstrap.com/theme/grayscale</div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="/static/js/scripts.js"></script>   
+</body>
+</html>
